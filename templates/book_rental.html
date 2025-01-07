@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{book.title}}</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Price</th>
+    <th>Available</th>
+    <th>Rating</th>
+    <th>UPC</th>
+    <th>URL</th>
+    <th>Category</th>
+  </tr>
+  <tr>
+    <td>{{book.title}}</td>
+    <td>{{book.price}}</td>
+    <td>{{book.available}}</td>
+    <td>{{book.rating}}</td>
+    <td>{{book.upc}}</td>
+    <td>{{book.url}}</td>
+    <td>{{book.category.name}}</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Rented On</th>
+    <th>Returned On</th>
+  </tr>
+  {% if book.rentals %}
+  {% for rental in book.rentals %}
+  <tr>
+    <td><a href="{{ url_for('user_rental', id=rental.user.id) }}">{{ rental.user.name }}</a></td>
+    <td>{{ rental.rented.strftime("%Y-%m-%d %H:%m") }}</td>
+    {% if rental.returned %}
+    <td>{{ rental.returned.strftime("%Y-%m-%d %H:%m") }}</td>
+    {% else %}
+    <td></td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+  {% endif %}
+</table>
+
+{% endblock %}

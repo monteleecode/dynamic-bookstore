@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Users</h1>
+{% for user in users %}
+<p>
+    <span><a href="{{ url_for('user_rental', id=user.id) }}">{{ user.name }}</a></span>
+</p>
+{% endfor %}
+{% endblock %}
